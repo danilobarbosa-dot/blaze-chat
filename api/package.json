@@ -1,8 +1,6 @@
-```json id="0wd3e0"
 {
-  "type": "module",
-  "dependencies": {
-    "openai": "^4.56.0"
-  }
+"type": "module",
+"dependencies": {
+"openai": "^4.56.0"
 }
-```
+}
