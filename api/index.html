@@ -1,16 +1,55 @@
-```javascript id="if8j3t"
+```javascript
 const response = await fetch("/api/chat", {
 
-    method:"POST",
+    method: "POST",
 
-    headers:{
-        "Content-Type":"application/json"
+    headers: {
+        "Content-Type": "application/json"
     },
 
-    body:JSON.stringify({
+    body: JSON.stringify({
+
         pergunta,
-        imagem: imagemBase64
+
+        imagem: fileToSend
+            ? await toBase64(fileToSend)
+            : null
+
     })
 
 });
+
+const data = await response.json();
+
+if (document.getElementById("loading")) {
+    document.getElementById("loading").remove();
+}
+
+if(data.erro){
+
+    chat.innerHTML += `
+    <div class="message bot" style="color:red">
+        ${data.erro}
+    </div>`;
+
+} else {
+
+    let texto = data.resposta;
+
+    const id = Date.now();
+
+    chat.innerHTML += `
+    <div class="message bot">
+
+        <div id="res-${id}">
+            ${texto.replace(/\n/g, '<br>')}
+        </div>
+
+        <button class="copy-btn"
+        onclick="copiarTexto('res-${id}')">
+            Copiar
+        </button>
+
+    </div>`;
+}
 ```
